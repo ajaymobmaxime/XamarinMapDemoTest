@@ -17,7 +17,6 @@
                 x:Name="mapObject"
                 Grid.Row="0"
                 Grid.RowSpan="2"
-                IsShowingUser="True"
                 MapType="Street"
                 MapClicked="MapObject_MapClicked"/>
             <StackLayout

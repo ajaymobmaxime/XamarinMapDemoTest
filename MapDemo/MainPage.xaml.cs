@@ -23,7 +23,7 @@ namespace MapDemo
         {
             try {
 
-                addressEntry.Text = "Taj Mahal, Agra, Uttar Pradesh, India";
+                addressEntry.Text = "Ahmedabad, Gujarat, India";
 
                 SetPinByAddress();
 
@@ -46,7 +46,6 @@ namespace MapDemo
         private void MapObject_MapClicked(object sender, MapClickedEventArgs e)
         {
             var postion = e.Position;
-            AddPins(postion);
             SetAddress(postion);
         }
 
@@ -59,18 +58,20 @@ namespace MapDemo
             };
 
             mapObject.Pins.Add(pin);
-            mapObject.MoveToRegion(MapSpan.FromCenterAndRadius(position, new Distance(5000)));
+            mapObject.MoveToRegion(MapSpan.FromCenterAndRadius(position, new Distance(500)));
 
         }
 
         private async void SetAddress(Position p)
         {
             var addrs = (await Geocoding.GetPlacemarksAsync(new Location(p.Latitude, p.Longitude))).FirstOrDefault();
-            string Street = $"{addrs.Thoroughfare} {addrs.SubThoroughfare}";
-            string City = $"{addrs.PostalCode} {addrs.Locality}";
+            string Street = $"{addrs.Thoroughfare} {addrs.SubThoroughfare} ";
+            string City = $"{addrs.PostalCode} {addrs.Locality} ";
             string Country = addrs.CountryName;
 
             addressEntry.Text = Street + City + Country;
+
+            AddPins(p);
         }
 
         private async void SetPinByAddress() {
